@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(CheatsheetTemplate NONE)
+project(Computertechnik NONE)
 include(UseLATEX)
 
 add_custom_target(
@@ -12,12 +12,12 @@ add_custom_target(
 set(IMAGE_DIRS
     img
     #Add subdirectories here
-    #img/logic
-	#img/rca
+    img/logic
+	img/rca
 )
 
 add_latex_document(
-    CheatsheetTemplate.tex
+    Computertechnik.tex
     FORCE_PDF
     IMAGE_DIRS ${IMAGE_DIRS}
     DEPENDS writegitid

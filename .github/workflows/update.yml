@@ -1,37 +1,38 @@
 name: Update README and LaTeX Build File
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  update-files-and-rename-tex:
+  update-and-create-pr:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Extract repository name
-        run: echo "REPO_NAME=$(echo ${{ github.repository }} | sed 's|.*/||')" >> $GITHUB_ENV
-
-      - name: Update README
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.2'
+      
+      - name: Run update script
+        run: python scripts/update_files.py
+      
+      - name: Configure Git
         run: |
-          sed -i "1s/.*/# ${{ env.REPO_NAME }}/" README.md
-          sed -i "/Actions Status/c\[![Actions Status](https://github.com/${{ github.repository }}/workflows/CI/badge.svg)](https://github.com/${{ github.repository }})" README.md
-
-      - name: Update CMakeLists.txt with new LaTeX file name
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      
+      - name: Commit changes to a new branch
         run: |
-          sed -i "/project(/c\\project(${{ env.REPO_NAME }} NONE)" CMakeLists.txt
-          sed -i "0,/[^ ]*\.tex/s//${{ env.REPO_NAME }}.tex/" CMakeLists.txt
-
-      - name: Setup Git
+          git checkout -b changes/${{ github.run_id }}
+          git add .
+          git commit -m "Apply automated updates"
+          git push -u origin changes/${{ github.run_id }}
+      
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git config --local user.name "${{ github.actor }}"
-
-      - name: Commit and push if changed
-        run: |
-          git add README.md CMakeLists.txt 
-          git diff --staged --quiet || git commit -m "Update README and LaTeX build configuration with correct repository name"
-          git push
+          gh pr create --base main --head changes/${{ github.run_id }} --title "Specify project URLs and CMake project" --body "Please review the changes applied by the automated script."
