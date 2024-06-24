@@ -11,9 +11,9 @@
 % Document Settings
 % ======================================================================
 
-% possible options: color/nocolor, english/ngerman, threecolumn
+% possible options: color/nocolor, english/german, threecolumn
 % defaults: color, english
-\documentclass[ngerman, threecolumn, 8pt]{latex4ei/latex4ei_sheet}
+\documentclass[german, threecolumn, 8pt]{latex4ei/latex4ei_sheet}
 
 % set document information
 \title{Computertechnik}
@@ -41,7 +41,6 @@
 % ======================================================================
 \begin{document}
 
-\lfoot{Nur zur persöhnlichen Verwendung!}
 
 \IfFileExists{git.id}{\input{git.id}}{}
 \ifdefined\GitRevision\mydate{\GitNiceDate\ (git \GitRevision)}\fi
@@ -50,7 +49,7 @@
 % ----------------------------------------------------------------------
 \maketitle   % requires ./img/Logo.pdf
 \\
-\textcolor{red}{\small Diese Formelsammlung ist für den privaten Gebrauch und das Selbststudium von Studierenden erstellt worden. Die Inhalte basieren auf Materialien des Lehrstuhls für Datenverarbeitung und sind ausschließlich zur Unterstützung des Lernens gedacht.}
+\textcolor{black}{\small In der Prüfung "Computertechnik und Programmieren"\ ist nur die unten angehängte Formelsammlung zulässig!}
 % Section
 % ----------------------------------------------------------------------
 \section{Zahlen und Zeichen}
@@ -98,7 +97,7 @@
 	\item Das Komma durch Anpassung des Exponenten $e-K$, verschieben, um das Format $1,f$ zu erhalten ($1,0001101 \cdot 2^4 \rightarrow e-K=4$) \\
 	\end{enumerate}
 \begin{sectionbox}
-	Definition (normalisiert): $v=(-1)^s \cdot 1,f \cdot 2^{e-K}$\\\\
+	Definition (normalisiert): $v=(-1)^s \cdot 1,f \cdot 2^{e-K}$\\
     \textbf{32 Bit:}
         \begin{itemize}\itemsep0pt
             \item $K=127$
@@ -113,7 +112,7 @@
             \item $e = 11$ Bit
             \item $f = 52$ Bit
         \end{itemize}
-	\textbf{Spezialfälle} (de-normalisiert):
+	\textbf{Spezialfälle} (de-normalisiert $v=(-1)^s \cdot 0,f \cdot 2^{e-K}$):
 	\begin{itemize}\itemsep0pt
 	\item 0: $e=0$; $f=0$
 	\item $+\infty$: $e=1\dots1$; $f=0$; $s=0$
@@ -151,7 +150,7 @@ Schnellere Berechnung der Summe aus zwei Summanden durch zusätzliche Logik zur 
 $c_i=g_i \lor (p_i \land g_{i-1}) \lor (p_i \land p_{i-1} \land g_{i-2}) \lor \dots$\\
 \subsection{Zustandsautomat}
 \begin{center}
-\includegraphics[width=.8\linewidth]{img/moore-automat.pdf}
+\includegraphics[width=.75\linewidth]{img/moore-automat.pdf}
 \end{center}
 %\begin{itemize}
 %\item Input: Eingangssignale in den Automaten
@@ -173,7 +172,7 @@ e f & Zst. & a b c d & Folgezst.\\
 \begin{sectionbox}
 \subsection{Universalrechner}
 \includegraphics[width=.9\linewidth]{img/Universalrechner.png} \\
-\textbf{Auch hier gilt:} Klammer \textit{vor} Potenz \& Wurzel \textit{vor} Punkt \textit{vor} Strich!
+\textbf{Auch hier gilt:} Klammer \textit{vor} Wurzel \textit{vor} Punkt \textit{vor} Strich!
 \begin{itemize}\itemsep0pt
 \item \textbf{K:} Konstante
 \item \textbf{D:} Ziel-Register
@@ -191,7 +190,7 @@ e f & Zst. & a b c d & Folgezst.\\
 \begin{sectionbox}
 \subsection{Übersetzungstabelle}
 \includegraphics[width=\linewidth]{img/Uebersetzungstabelle.png}
-Um Opcode zu erhalten erste Hex-Zahl links ablesen, zweite Hex-Zahl oben/unten ablesen (je nachdem ob Befehl in oberer oder unterer Zeile)\\
+Um Opcode zu erhalten den Befehl in der Tabelle suchen. Erste Hex-Zahl links ablesen, zweite Hex-Zahl (je nach Subzeile) oben oder unten ablesen.\\
 $I$: immideate (Direktoperand); $B$: backwards (bei Sprungbefehlen)
 \end{sectionbox}
 \end{minipage}
@@ -317,8 +316,8 @@ Der Zähler \texttt{TCNT$n$} wird mit der Frequenz $f=\frac{\text{clk}}{\text{Pr
 
 %Formelsammlung
 \newpage
-\lfoot{Nur zur persöhnlichen Verwendung!}
-\cfoot{Quelle: \href{mailto:ldv@ei.tum.de}{Lehrstuhl für Datenverarbeitung (LDV)}} % Setzt die rechte Fußzeile
+\lfoot{Formelsammlung aus der Prüfung}
+\cfoot{Quelle: Michael Zwick (\href{mailto:zwick@tum.de}{zwick@tum.de})} % Setzt die rechte Fußzeile
 \rfoot{Stand: Wintersemester 23/24 \qquad \thepage/\pageref{LastPage}} % Setzt die rechte Fußzeile
 \includepdf[pages=-, pagecommand={\thispagestyle{fancy}}]{./img/Formelsammlung.pdf}
 %\includepdf[pages=-]{./img/Formelsammlung.pdf}
