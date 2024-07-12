@@ -23,7 +23,7 @@
 
 
 %Packages
-\usepackage{pdfpages}
+%\usepackage{pdfpages} %Causing error on build
 \usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
@@ -44,6 +44,11 @@
 
 \IfFileExists{git.id}{\input{git.id}}{}
 \ifdefined\GitRevision\mydate{\GitNiceDate\ (git \GitRevision)}\fi
+\ifdefined\GitIssuesURL
+  \ifdefined\setissueslinkurl
+    \setissueslinkurl{\GitIssuesURL} % Set the actual URL
+  \fi
+\fi
 
 % Title
 % ----------------------------------------------------------------------
@@ -315,11 +320,11 @@ Der Zähler \texttt{TCNT$n$} wird mit der Frequenz $f=\frac{\text{clk}}{\text{Pr
 \end{minipage}
 
 %Formelsammlung
-\newpage
-\lfoot{Formelsammlung aus der Prüfung}
-\cfoot{Quelle: Michael Zwick (\href{mailto:zwick@tum.de}{zwick@tum.de})} % Setzt die rechte Fußzeile
-\rfoot{Stand: Wintersemester 23/24 \qquad \thepage/\pageref{LastPage}} % Setzt die rechte Fußzeile
-\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}]{./img/Formelsammlung.pdf}
+%\newpage
+%\lfoot{Formelsammlung aus der Prüfung}
+%\cfoot{Quelle: Michael Zwick (\href{mailto:zwick@tum.de}{zwick@tum.de})} % Setzt die rechte Fußzeile
+%\rfoot{Stand: Wintersemester 23/24} % Setzt die rechte Fußzeile
+%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}]{./img/Formelsammlung.pdf}
 %\includepdf[pages=-]{./img/Formelsammlung.pdf}
 
 % ======================================================================

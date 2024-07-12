@@ -41,15 +41,24 @@ jobs:
           mkdir -p build && cd build
           cmake ..
           make
+          
+      - name: Install pdftk
+        run: apt-get update && apt-get install -y pdftk
+
+      - name: Combine PDFs
+        run: pdftk build/Computertechnik.pdf img/Formelsammlung.pdf cat output build/output.pdf
+      
+      - name: Rename output PDF
+        run: rm build/Computertechnik.pdf && mv build/output.pdf build/Computertechnik.pdf
 
       - name: Prepare Deployment
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         run: |
           mkdir -p export
           echo "# This branch is for deployment only" >> export/README.md
-          cp build/*.pdf export
+          cp build/Computertechnik.pdf export
           cp build/git.id export
-
+          
       - name: Deploy
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.5.0
